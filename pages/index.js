@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import config from "../config.json";
 import { MainCard } from "../components/MainCard";
 import { ContentBox } from "../components/ContentBox";
 import { Header } from "../components/Header";
@@ -13,7 +13,7 @@ import { ErrorScreen } from "../components/ErrorScreen";
 import styles from "../styles/Home.module.css";
 
 export const App = () => {
-  const [cityInput, setCityInput] = useState("Riga");
+  const [cityInput, setCityInput] = useState(config.city);
   const [triggerFetch, setTriggerFetch] = useState(true);
   const [weatherData, setWeatherData] = useState();
   const [unitSystem, setUnitSystem] = useState("metric");
@@ -27,7 +27,7 @@ export const App = () => {
       });
       const data = await res.json();
       setWeatherData({ ...data });
-      setCityInput("");
+      setCityInput(config.city);
     };
     getData();
   }, [triggerFetch]);
