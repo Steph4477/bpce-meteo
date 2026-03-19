@@ -22,9 +22,14 @@ export const App = () => {
       });
       const data = await res.json();
       setWeatherData({ ...data });
-      //setCityInput(config.city);
     };
     getData();
+
+    const interval = setInterval(() => {
+    getData();
+  }, 3600000); // 1 heure en ms
+
+    return () => clearInterval(interval);
   }, []);
 
   const changeSystem = () =>
@@ -32,7 +37,7 @@ export const App = () => {
       ? setUnitSystem("imperial")
       : setUnitSystem("metric");
 
-  return weatherData && !weatherData.message ? (
+  return weatherData && weatherData.current ? (
     <div className={styles.wrapper}>
       <MainCard
         city={config.city}
